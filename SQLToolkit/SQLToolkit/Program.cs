@@ -4,13 +4,19 @@ using Microsoft.SqlServer.Management.Common;
 using System.IO;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Data;
+using Dapper;
 
 namespace SQLToolkit
 {
     class Program
     {
+        static string SqlConnectionString;
+
         static void Main(string[] args)
         {
+           
+
             if (!ValidateArgs(args))
             {
                 args = new string[100];
@@ -33,11 +39,17 @@ namespace SQLToolkit
                 args[5] = Console.ReadLine();
             }
 
+           
+
             if (!ValidateSqlPath(args[5]))
             {
                 return;
             }
-            
+
+            SqlConnectionString= string.Format(@"Server={0},{1};Initial Catalog={2};Persist Security Info=False;User ID={3};Password={4};Connection Timeout=30;", args[0], args[1], args[2], args[3], args[4]);
+
+            //init basic scheme for sqltoolkit
+            Init();
 
             Log("===============BEGIN=================");
            
@@ -46,8 +58,7 @@ namespace SQLToolkit
             Log(string.Format("ScriptFolder:{0}", scriptsFolder));
             var sqlFiles = Directory.GetFiles(scriptsFolder).OrderBy(i=>i);
             Log(string.Format("Find {0} sql scripts", sqlFiles.Count()));
-            string sqlConnectionString = string.Format(@"Server={0},{1};Initial Catalog={2};Persist Security Info=False;User ID={3};Password={4};Connection Timeout=30;", args[0], args[1], args[2], args[3],args[4]);     
-            SqlConnection conn = new SqlConnection(sqlConnectionString);
+            SqlConnection conn = new SqlConnection(SqlConnectionString);
             Server server = new Server(new ServerConnection(conn));
             foreach (string file in sqlFiles)
             {
@@ -87,6 +98,21 @@ namespace SQLToolkit
                 return false;
             }
             return true;
+        }
+
+        static void Init()
+        {
+            using (IDbConnection conn = new SqlConnection(SqlConnectionString))
+            {
+                conn.Execute(@"
+                IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='DatabaseVersion')
+                CREATE TABLE DatabaseVersion(
+                    [Id] [int]  PRIMARY KEY,
+                    [Filename] [nvarchar](MAX)  NULL,
+                    [ExecuteResult] [nvarchar](MAX)  NULL,
+                    [ExecuteTime] [nvarchar](MAX)  NULL,
+                )");
+            }
         }
 
         static void Log(string message)

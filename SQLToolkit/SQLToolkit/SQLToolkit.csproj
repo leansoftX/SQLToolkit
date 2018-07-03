@@ -7,15 +7,32 @@
 
   <ItemGroup>
     <None Remove="Scripts\01-test.sql" />
+    <None Remove="Scripts\02-test.sql" />
+    <None Remove="Scripts\03-test.sql" />
+    <None Remove="Scripts\04-test.sql" />
+    <None Remove="Scripts\05-test.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Scripts\01-test.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\02-test.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\03-test.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\04-test.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\05-test.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="Microsoft.SqlServer.SqlManagementObjects" Version="140.17265.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
   </ItemGroup>

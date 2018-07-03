@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SQLToolkit": {
+      "commandName": "Project",
+      "commandLineArgs": "labs-test.devopshub.cn 1333 devopslabs sa P2ssw0rd C:\\\\SQLToolkit\\\\SQLToolkit\\\\SQLToolkit\\\\Scripts"
+    }
+  }
+}
