@@ -9,9 +9,9 @@ namespace SQLToolkit.Helper
 {
     public static class DapperHelper
     {
-        public static int Execute(string sqlConnectString,string sql)
+        public static int Execute(string sql)
         {
-            using (IDbConnection conn = new SqlConnection(sqlConnectString))
+            using (IDbConnection conn = new SqlConnection(Program.SqlConnectionString))
             {
                 return conn.Execute(sql);
             }

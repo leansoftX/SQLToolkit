@@ -11,7 +11,7 @@ namespace SQLToolkit
 {
     class Program
     {
-        static string SqlConnectionString;
+        public static string SqlConnectionString;
 
         static void Main(string[] args)
         {
@@ -44,7 +44,7 @@ namespace SQLToolkit
 
             SqlConnectionString= string.Format(@"Server={0},{1};Initial Catalog={2};Persist Security Info=False;User ID={3};Password={4};Connection Timeout=30;", args[0], args[1], args[2], args[3], args[4]);
             //init basic scheme for sqltoolkit
-            Init();
+            Business.DatabaseVersion.Init();
             Helper.LogHelper.Log("===============BEGIN=================");
            
             var scriptsFolder = args[5];
@@ -74,7 +74,7 @@ namespace SQLToolkit
 
         }
         
-        static bool ValidateArgs(string[] args) {
+        private static bool ValidateArgs(string[] args) {
             if (args.Length < 6)
             {
                 Helper.LogHelper.Log("请提供完整的参数信息");
@@ -83,7 +83,7 @@ namespace SQLToolkit
             return true;
         }
 
-        static bool ValidateSqlPath(string path)
+        private static bool ValidateSqlPath(string path)
         {
             if (!Directory.Exists(path))
             {
@@ -93,17 +93,7 @@ namespace SQLToolkit
             return true;
         }
 
-        static void Init()
-        {
-            Helper.DapperHelper.Execute(SqlConnectionString, @"
-                IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='DatabaseVersion')
-                CREATE TABLE DatabaseVersion(
-                    [Id] [int]  PRIMARY KEY,
-                    [Filename] [nvarchar](MAX)  NULL,
-                    [ExecuteResult] [nvarchar](MAX)  NULL,
-                    [ExecuteTime] [nvarchar](MAX)  NULL,
-                )");
-        }
+       
 
        
 
