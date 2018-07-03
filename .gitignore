@@ -3,3 +3,7 @@
 ################################################################################
 
 /SQLToolkit/.vs
+/SQLToolkit/SQLToolkit/bin
+/SQLToolkit/SQLToolkit/obj
+/SQLToolkit/SQLToolkit/Properties/PublishProfiles
+/SQLToolkit/SQLToolkit/Scripts
