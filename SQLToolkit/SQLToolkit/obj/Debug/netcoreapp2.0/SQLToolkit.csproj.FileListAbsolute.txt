@@ -1,0 +1,11 @@
+C:\sql\SQLToolkit\SQLToolkit\bin\Debug\netcoreapp2.0\SQLToolkit.deps.json
+C:\sql\SQLToolkit\SQLToolkit\bin\Debug\netcoreapp2.0\SQLToolkit.runtimeconfig.json
+C:\sql\SQLToolkit\SQLToolkit\bin\Debug\netcoreapp2.0\SQLToolkit.runtimeconfig.dev.json
+C:\sql\SQLToolkit\SQLToolkit\bin\Debug\netcoreapp2.0\SQLToolkit.dll
+C:\sql\SQLToolkit\SQLToolkit\obj\Debug\netcoreapp2.0\SQLToolkit.csprojResolveAssemblyReference.cache
+C:\sql\SQLToolkit\SQLToolkit\obj\Debug\netcoreapp2.0\SQLToolkit.csproj.CoreCompileInputs.cache
+C:\sql\SQLToolkit\SQLToolkit\obj\Debug\netcoreapp2.0\SQLToolkit.AssemblyInfoInputs.cache
+C:\sql\SQLToolkit\SQLToolkit\obj\Debug\netcoreapp2.0\SQLToolkit.AssemblyInfo.cs
+C:\sql\SQLToolkit\SQLToolkit\bin\Debug\netcoreapp2.0\SQLToolkit.pdb
+C:\sql\SQLToolkit\SQLToolkit\obj\Debug\netcoreapp2.0\SQLToolkit.dll
+C:\sql\SQLToolkit\SQLToolkit\obj\Debug\netcoreapp2.0\SQLToolkit.pdb
