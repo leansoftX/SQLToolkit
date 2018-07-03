@@ -1,1 +1,4 @@
-﻿DROP TABLE sqlupgrade
+﻿CREATE TABLE sqlupgrade (
+    id int,
+    name varchar(255)
+);
