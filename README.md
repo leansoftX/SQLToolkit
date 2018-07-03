@@ -5,3 +5,8 @@ https://docs.microsoft.com/en-us/sql/relational-databases/server-management-obje
 Installing SMO
 
 https://docs.microsoft.com/en-us/sql/relational-databases/server-management-objects-smo/installing-smo?view=sql-server-2017
+
+Release for Win10
+
+dotnet build -r win10-x64
+
