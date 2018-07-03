@@ -11,6 +11,25 @@ namespace SQLToolkit
     {
         static void Main(string[] args)
         {
+            if (!ValidateArgs(args))
+            {
+                args = new string[100];
+                Console.WriteLine(@"Please Enter Server Address: ");
+                args[0] = Console.ReadLine();
+
+                Console.WriteLine(@"Please Enter Server Port: ");
+                args[1] = Console.ReadLine();
+
+                Console.WriteLine(@"Please Enter Database Name: ");
+                args[2] = Console.ReadLine();
+
+                Console.WriteLine(@"Please Enter Database Username: ");
+                args[3] = Console.ReadLine();
+
+                Console.WriteLine(@"Please Enter Database Password: ");
+                args[4] = Console.ReadLine();
+            }
+
             Log("===============BEGIN=================");
             var rootFolder = Directory.GetCurrentDirectory();
             var scriptsFolder = Path.Combine(rootFolder, "Scripts");
@@ -42,10 +61,21 @@ namespace SQLToolkit
 
         }
 
+       
+        static bool ValidateArgs(string[] args) {
+            if (args.Length < 5)
+            {
+                Log("请提供完整的数据库连接字符串");
+                return false;
+            }
+            return true;
+        }
+
         static void Log(string message)
         {
             Console.Write(string.Format("{0}-{1}\n", DateTime.Now.ToString(), message));
-            
+
         }
+
     }
 }
