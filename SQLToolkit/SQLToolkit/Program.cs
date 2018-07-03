@@ -28,11 +28,20 @@ namespace SQLToolkit
 
                 Console.WriteLine(@"Please Enter Database Password: ");
                 args[4] = Console.ReadLine();
+
+                Console.WriteLine(@"Please Enter SQL Scripts Path: ");
+                args[5] = Console.ReadLine();
             }
 
+            if (!ValidateSqlPath(args[5]))
+            {
+                return;
+            }
+            
+
             Log("===============BEGIN=================");
-            var rootFolder = Directory.GetCurrentDirectory();
-            var scriptsFolder = Path.Combine(rootFolder, "Scripts");
+           
+            var scriptsFolder = args[5];
             Log("===============SQL=================");
             Log(string.Format("ScriptFolder:{0}", scriptsFolder));
             var sqlFiles = Directory.GetFiles(scriptsFolder).OrderBy(i=>i);
@@ -60,12 +69,21 @@ namespace SQLToolkit
             Console.Write("===============END=================\n");
 
         }
-
-       
+        
         static bool ValidateArgs(string[] args) {
-            if (args.Length < 5)
+            if (args.Length < 6)
             {
-                Log("请提供完整的数据库连接字符串");
+                Log("请提供完整的参数信息");
+                return false;
+            }
+            return true;
+        }
+
+        static bool ValidateSqlPath(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Log(string.Format("Error:The path you supply is not exist,path:{0}", path));
                 return false;
             }
             return true;
