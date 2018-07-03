@@ -6,9 +6,9 @@ namespace SQLToolkit.Business
 {
     public static class DatabaseVersion
     {
-        public static void Init()
+        public static int Init()
         {
-            Helper.DapperHelper.Execute(@"
+            return Helper.DapperHelper.Execute(@"
                 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='DatabaseVersion')
                 CREATE TABLE DatabaseVersion(
                     [Id] [int]  PRIMARY KEY,
@@ -17,5 +17,7 @@ namespace SQLToolkit.Business
                     [ExecuteTime] [nvarchar](MAX)  NULL,
                 )");
         }
+
+
     }
 }
