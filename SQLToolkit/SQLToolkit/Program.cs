@@ -3,7 +3,7 @@ using Microsoft.SqlServer.Management.Smo;
 using Microsoft.SqlServer.Management.Common;
 using System.IO;
 using System.Data.SqlClient;
-
+using System.Linq;
 
 namespace SQLToolkit
 {
@@ -35,8 +35,8 @@ namespace SQLToolkit
             var scriptsFolder = Path.Combine(rootFolder, "Scripts");
             Log("===============SQL=================");
             Log(string.Format("ScriptFolder:{0}", scriptsFolder));
-            var sqlFiles = Directory.GetFiles(scriptsFolder);
-            Log(string.Format("Find {0} sql scripts", sqlFiles.Length));
+            var sqlFiles = Directory.GetFiles(scriptsFolder).OrderBy(i=>i);
+            Log(string.Format("Find {0} sql scripts", sqlFiles.Count()));
             string sqlConnectionString = string.Format(@"Server={0},{1};Initial Catalog={2};Persist Security Info=False;User ID={3};Password={4};Connection Timeout=30;", args[0], args[1], args[2], args[3],args[4]);     
             SqlConnection conn = new SqlConnection(sqlConnectionString);
             Server server = new Server(new ServerConnection(conn));
