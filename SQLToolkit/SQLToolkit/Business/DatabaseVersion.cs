@@ -53,6 +53,7 @@ namespace SQLToolkit.Business
                     Business.DatabaseVersion.UpdateRecord(filename, "fail", ex.Message);
                     Helper.LogHelper.Log(string.Format("Failed run sql script:{0}", filename));
                     Helper.LogHelper.Log(string.Format("Error:{0}", ex.ToString()));
+                    break;
 
                 }
 
