@@ -2,7 +2,7 @@ version: '3'
 
 services:
   toolkit-ci-build:
-    image: devopslabs.azurecr.io/aspnetcore-build:2.0
+    image: microsoft/aspnetcore-build:2.0
     volumes:
       - .:/src
     working_dir: /src
