@@ -16,5 +16,7 @@ namespace SQLToolkit.Helper
                 return conn.Execute(sql);
             }
         }
+
+       
     }
 }

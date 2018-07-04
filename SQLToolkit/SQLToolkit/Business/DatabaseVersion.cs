@@ -9,13 +9,20 @@ namespace SQLToolkit.Business
         public static int Init()
         {
             return Helper.DapperHelper.Execute(@"
-                IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='DatabaseVersion')
-                CREATE TABLE DatabaseVersion(
-                    [Id] [int]  PRIMARY KEY,
+                IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ST_DatabaseVersion')
+                CREATE TABLE ST_DatabaseVersion(
+                    ID int IDENTITY(1,1) PRIMARY KEY,
                     [Filename] [nvarchar](MAX)  NULL,
                     [ExecuteResult] [nvarchar](MAX)  NULL,
                     [ExecuteTime] [nvarchar](MAX)  NULL,
                 )");
+        }
+
+        public static int UpdateRecord(string filename, string result)
+        {
+            var sql = string.Format(@"INSERT INTO ST_DatabaseVersion (Filename, ExecuteResult, ExecuteTime)
+                VALUES ('{0}', '{1}', '{2}');", filename, "success", DateTime.Now.ToString());
+            return Helper.DapperHelper.Execute(sql);
         }
 
 

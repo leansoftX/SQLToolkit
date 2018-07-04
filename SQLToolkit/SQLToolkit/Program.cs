@@ -57,14 +57,19 @@ namespace SQLToolkit
             foreach (string file in sqlFiles)
             {
                 Helper.LogHelper.Log(string.Format("Ready to exec sql script:{0}", file));
+                var filename = Path.GetFileName(file);
 
                 try
                 {
                     server.ConnectionContext.ExecuteNonQuery(File.ReadAllText(file));
+                    Business.DatabaseVersion.UpdateRecord(filename, "success");
+
                 }
                 catch (Exception ex)
                 {
                     Helper.LogHelper.Log(string.Format("Error:{0}", ex.ToString()));
+                    Business.DatabaseVersion.UpdateRecord(filename, "fail");
+
                 }
 
                 Helper.LogHelper.Log(string.Format("Finish to exec sql script:{0}", file));
