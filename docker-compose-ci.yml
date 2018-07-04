@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  toolkit-ci-build:
+    image: devopslabs.azurecr.io/aspnetcore-build:1.0-1.1
+    volumes:
+      - .:/src
+    working_dir: /src
+    command: /bin/bash -c "dotnet restore ./SQLToolkit/SQLToolkit/SQLToolkit.csproj && dotnet build -r win10-x64"
+
