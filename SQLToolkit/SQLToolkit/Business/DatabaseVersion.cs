@@ -21,7 +21,7 @@ namespace SQLToolkit.Business
         public static int UpdateRecord(string filename, string result)
         {
             var sql = string.Format(@"INSERT INTO ST_DatabaseVersion (Filename, ExecuteResult, ExecuteTime)
-                VALUES ('{0}', '{1}', '{2}');", filename, "success", DateTime.Now.ToString());
+                VALUES ('{0}', '{1}', '{2}');", filename, result, DateTime.Now.ToString());
             return Helper.DapperHelper.Execute(sql);
         }
 
