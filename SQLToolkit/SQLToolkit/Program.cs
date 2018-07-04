@@ -41,44 +41,22 @@ namespace SQLToolkit
             {
                 return;
             }
-
+            //generate sql connect string
             SqlConnectionString= string.Format(@"Server={0},{1};Initial Catalog={2};Persist Security Info=False;User ID={3};Password={4};Connection Timeout=30;", args[0], args[1], args[2], args[3], args[4]);
+           
             //init basic scheme for sqltoolkit
             Business.DatabaseVersion.Init();
+
             Helper.LogHelper.Log("===============BEGIN=================");
-           
+
+            //run upgrade sql scripts
             var scriptsFolder = args[5];
-            Helper.LogHelper.Log("===============SQL=================");
-            Helper.LogHelper.Log(string.Format("ScriptFolder:{0}", scriptsFolder));
-            var sqlFiles = Directory.GetFiles(scriptsFolder).OrderBy(i=>i);
-            Helper.LogHelper.Log(string.Format("Find {0} sql scripts", sqlFiles.Count()));
-            SqlConnection conn = new SqlConnection(SqlConnectionString);
-            Server server = new Server(new ServerConnection(conn));
-            foreach (string file in sqlFiles)
-            {
-                Helper.LogHelper.Log(string.Format("Ready to exec sql script:{0}", file));
-                var filename = Path.GetFileName(file);
+            Business.DatabaseVersion.Upgrade(scriptsFolder);
 
-                try
-                {
-                    server.ConnectionContext.ExecuteNonQuery(File.ReadAllText(file));
-                    Business.DatabaseVersion.UpdateRecord(filename, "success");
-
-                }
-                catch (Exception ex)
-                {
-                    Helper.LogHelper.Log(string.Format("Error:{0}", ex.ToString()));
-                    Business.DatabaseVersion.UpdateRecord(filename, "fail");
-
-                }
-
-                Helper.LogHelper.Log(string.Format("Finish to exec sql script:{0}", file));
-
-            }
-            Console.Write("===============END=================\n");
+            Helper.LogHelper.Log("===============End=================");
 
         }
-        
+
         private static bool ValidateArgs(string[] args) {
             if (args.Length < 6)
             {
