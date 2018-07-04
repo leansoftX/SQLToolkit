@@ -21,6 +21,7 @@ namespace SQLToolkit.Business
                     [Filename] [nvarchar](MAX)  NULL,
                     [ExecuteResult] [nvarchar](MAX)  NULL,
                     [ExecuteTime] [nvarchar](MAX)  NULL,
+                    [Message] [nvarchar](MAX)  NULL
                 )");
         }
 
@@ -42,14 +43,14 @@ namespace SQLToolkit.Business
                 try
                 {
                     Helper.SQLHelper.ExecuteNonQuery(File.ReadAllText(file));
-                    Business.DatabaseVersion.UpdateRecord(filename, "success");
+                    Business.DatabaseVersion.UpdateRecord(filename, "success","");
                     Helper.LogHelper.Log(string.Format("Successful run sql script:{0}", filename));
 
 
                 }
                 catch (Exception ex)
                 {
-                    Business.DatabaseVersion.UpdateRecord(filename, "fail");
+                    Business.DatabaseVersion.UpdateRecord(filename, "fail", ex.Message);
                     Helper.LogHelper.Log(string.Format("Failed run sql script:{0}", filename));
                     Helper.LogHelper.Log(string.Format("Error:{0}", ex.ToString()));
 
@@ -67,10 +68,10 @@ namespace SQLToolkit.Business
         /// <param name="filename">脚本文件名称</param>
         /// <param name="result">执行结果</param>
         /// <returns></returns>
-        public static int UpdateRecord(string filename, string result)
+        public static int UpdateRecord(string filename, string result,string message)
         {
-            var sql = string.Format(@"INSERT INTO ST_DatabaseVersion (Filename, ExecuteResult, ExecuteTime)
-                VALUES ('{0}', '{1}', '{2}');", filename, result, DateTime.Now.ToString());
+            var sql = string.Format(@"INSERT INTO ST_DatabaseVersion (Filename, ExecuteResult, ExecuteTime,Message)
+                VALUES ('{0}', '{1}', '{2}','{3}');", filename, result, DateTime.Now.ToString(),message);
             return Helper.DapperHelper.Execute(sql);
         }
 
