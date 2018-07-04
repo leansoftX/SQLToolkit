@@ -25,6 +25,14 @@ namespace SQLToolkit.Helper
             }
         }
 
+        public static T ExecuteScalar<T>(string sql)
+        {
+            using (IDbConnection conn = new SqlConnection(Program.SqlConnectionString))
+            {
+                return conn.ExecuteScalar<T>(sql);
+            }
+        }
+
 
     }
 }

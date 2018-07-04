@@ -70,8 +70,20 @@ namespace SQLToolkit.Business
         /// <returns></returns>
         public static int UpdateRecord(string filename, string result,string message)
         {
-            var sql = string.Format(@"INSERT INTO ST_DatabaseVersion (Filename, ExecuteResult, ExecuteTime,Message)
-                VALUES ('{0}', '{1}', '{2}','{3}');", filename, result, DateTime.Now.ToString(),message);
+            var sql = "";
+            if (!ExecutedBefore(filename)){
+                sql = string.Format(@"INSERT INTO ST_DatabaseVersion (Filename, ExecuteResult, ExecuteTime,Message)
+                VALUES ('{0}', '{1}', '{2}','{3}');", filename, result, DateTime.Now.ToString(), message);
+            }
+            else {
+                
+                sql = string.Format(@"UPDATE st_databaseversion
+                SET ExecuteResult = '{0}', 
+                    ExecuteTime= '{1}',
+                    Message='{2}'
+                WHERE Filename = '{3}';", result, DateTime.Now.ToString(), message,filename);
+            }
+           
             return Helper.DapperHelper.Execute(sql);
         }
 
@@ -107,6 +119,13 @@ namespace SQLToolkit.Business
             var sql = string.Format(@"select top 1 filename from  st_databaseversion
             where executeResult='success' order by filename desc");
             return Helper.DapperHelper.ExecuteScalar(sql);
+        }
+
+
+        private static bool ExecutedBefore(string filename)
+        {
+            var exists = Helper.DapperHelper.ExecuteScalar<bool>(string.Format("select count(1) from ST_DatabaseVersion where filename='{0}'", filename));
+            return exists;
         }
 
 
