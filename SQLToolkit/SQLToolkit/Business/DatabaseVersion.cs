@@ -33,6 +33,12 @@ namespace SQLToolkit.Business
         /// <param name="path">数据库脚本路径</param>
         public static void Upgrade(string path)
         {
+            if(!ValidateSqlPath(path))
+            {
+                Helper.LogHelper.Log(string.Format("Error:The path you supply is not exist,path:{0}", path));
+                return;
+            }
+
             var allSQLFiles = Directory.GetFiles(path).OrderBy(i => i).ToArray();
             var runFiles = updateScripts(allSQLFiles);
             foreach (string file in runFiles)
@@ -127,6 +133,15 @@ namespace SQLToolkit.Business
         {
             var exists = Helper.DapperHelper.ExecuteScalar<bool>(string.Format("select count(1) from ST_DatabaseVersion where filename='{0}'", filename));
             return exists;
+        }
+
+        private static bool ValidateSqlPath(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                return false;
+            }
+            return true;
         }
 
 
