@@ -47,7 +47,12 @@ namespace SQLToolkit
             //init basic scheme for sqltoolkit
             Business.DatabaseVersion.Init();
 
+
             Helper.LogHelper.Log("===============BEGIN=================");
+
+            //backup database before upgrade
+            Business.SQLServer.Backup(args[2],"/home/sqlbackup/devopslabs.bak");
+
 
             //run upgrade sql scripts
             var scriptsFolder = args[5];
