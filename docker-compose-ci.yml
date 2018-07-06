@@ -6,5 +6,5 @@ services:
     volumes:
       - .:/src
     working_dir: /src
-    command: /bin/bash -c "dotnet restore ./SQLToolkit/SQLToolkit/SQLToolkit.csproj && dotnet build ./SQLToolkit/SQLToolkit/SQLToolkit.csproj -r win10-x64"
+    command: /bin/bash -c "dotnet restore ./SQLToolkit/SQLToolkit/SQLToolkit.csproj && dotnet publish ./SQLToolkit/SQLToolkit/SQLToolkit.csproj -c Release -r ubuntu.16.04-x64"
 
