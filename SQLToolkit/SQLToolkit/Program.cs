@@ -152,13 +152,13 @@ namespace SQLToolkit
             }
 
 
-            SqlConnectionString = string.Format(@"Server={0};Initial Catalog={1};Persist Security Info=False;User ID={2};Password={3};Connection Timeout=30;", database_server,database_name, database_username, database_password);
+            SqlConnectionString = string.Format(@"Server={0};Initial Catalog={1};Persist Security Info=False;User ID={2};Password={3};Connection Timeout=30;", database_server,"master", database_username, database_password);
             
             //init basic scheme for sqltoolkit
-            Business.DatabaseVersion.Init();
+            Business.DatabaseVersion.Init(database_name);
             Helper.LogHelper.Log("===============BEGIN=================");
             //run upgrade sql scripts
-            Business.DatabaseVersion.Upgrade(sqlscripts_path);
+            Business.DatabaseVersion.Upgrade(database_name,sqlscripts_path);
             Helper.LogHelper.Log("===============End=================");
 
         }
