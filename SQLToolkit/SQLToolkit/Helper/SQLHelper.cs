@@ -16,5 +16,13 @@ namespace SQLToolkit.Helper
             return server.ConnectionContext.ExecuteNonQuery(sql);
 
         }
+
+        public static object ExecuteScalar(string sql)
+        {
+            SqlConnection conn = new SqlConnection(Program.SqlConnectionString);
+            Server server = new Server(new ServerConnection(conn));
+            return server.ConnectionContext.ExecuteScalar(sql);
+
+        }
     }
 }

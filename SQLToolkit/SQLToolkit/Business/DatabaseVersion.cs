@@ -14,7 +14,7 @@ namespace SQLToolkit.Business
         /// <returns></returns>
         public static int Init(string database)
         {
-            return Helper.DapperHelper.Execute(string.Format(@"
+            return Helper.SQLHelper.ExecuteNonQuery(string.Format(@"
                 IF db_id('{0}') IS NULL 
                 Create Database {1}
                 GO
@@ -99,7 +99,7 @@ namespace SQLToolkit.Business
                 WHERE Filename = '{4}';", database,result, DateTime.Now.ToString(), message,filename);
             }
            
-            return Helper.DapperHelper.Execute(sql);
+            return Helper.SQLHelper.ExecuteNonQuery(sql);
         }
 
         /// <summary>
@@ -135,14 +135,14 @@ namespace SQLToolkit.Business
             Use {0}
             select top 1 filename from  st_databaseversion
             where executeResult='success' order by filename desc",database);
-            return Helper.DapperHelper.ExecuteScalar(sql);
+            return Helper.SQLHelper.ExecuteScalar(sql);
         }
 
 
         private static bool ExecutedBefore(string database,string filename)
         {
-            var exists = Helper.DapperHelper.ExecuteScalar<bool>(string.Format("Use {0} select count(1) from ST_DatabaseVersion where filename='{0}'", database,filename));
-            return exists;
+            var exists = Helper.SQLHelper.ExecuteScalar(string.Format("Use {0} select count(1) from ST_DatabaseVersion where filename='{0}'", database,filename));
+            return Convert.ToBoolean(exists);
         }
 
         private static bool ValidateSqlPath(string path)
