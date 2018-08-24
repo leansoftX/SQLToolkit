@@ -1,12 +1,9 @@
-How to Create a Visual C# SMO Project in Visual Studio .NET
+SQL Toolkit for backup and execute sql scripts
 
-https://docs.microsoft.com/en-us/sql/relational-databases/server-management-objects-smo/how-to-create-a-visual-csharp-smo-project-in-visual-studio-net?view=sql-server-2017
+1. Backup Demo
 
-Installing SMO
+SQLToolkit Backup -s $(DATABASE_SERVER) -n $(DATABASE_NAME) -u $(DATABASE_USERNAME) -p $(DATABASE_PASSWORD) -path /home/sqlbackup/database.bak
 
-https://docs.microsoft.com/en-us/sql/relational-databases/server-management-objects-smo/installing-smo?view=sql-server-2017
+2. Execute Sqlscripts
 
-Release for Win10
-
-dotnet build -r win10-x64
-
+SQLToolkit RunScripts -s $(DATABASE_SERVER) -n $(DATABASE_NAME) -u $(DATABASE_USERNAME) -p $(DATABASE_PASSWORD) -path ~/LabsUpgrade/SQLScripts_Up
